@@ -9,6 +9,8 @@ var concat = require('gulp-concat');
 var jshint = require('gulp-jshint');
 var uglify = require('gulp-uglify');
 
+var mockServer = require('gulp-mock-server');
+
 gulp.task('webserver', function() {
   gulp.src('app')
     .pipe(webserver({
@@ -41,6 +43,15 @@ gulp.task('lint', function () {
       .pipe(jshint.reporter('default'));  
 });
 
+gulp.task('mock', function() {
+  gulp.src('.')
+  .pipe(mockServer({
+      port: 8090,
+      path: './app/data',
+      mockDir: './app/data'
+  }));
+});
+
 //js打包ß
 gulp.task('scripts', function () {
   return gulp.src('app/src/js/**/*.js')
@@ -51,6 +62,6 @@ gulp.task('scripts', function () {
       .pipe(gulp.dest('app/dist/script'))
 });
 
-gulp.task('default', ['webserver', 'connect', 'watch'], function () {
+gulp.task('default', ['webserver', 'connect', 'watch', 'mock'], function () {
   //
 })
