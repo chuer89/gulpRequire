@@ -2,5 +2,5 @@ define([
   'module/b'
 ], function(b) {
   'use strict';
-  console.log('c')
+  console.log('c131')
 });

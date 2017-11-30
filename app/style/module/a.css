@@ -1,0 +1,14 @@
+div {
+  height: 100px;
+  background-color: whitesmoke;
+}
+div a {
+  color: red;
+}
+div span {
+  font-size: 40px;
+}
+h1 {
+  color: red;
+  font-size: 30px;
+}
