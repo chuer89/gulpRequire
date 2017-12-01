@@ -10,17 +10,22 @@
   "license": "ISC",
   "devDependencies": {
     "amd-optimize": "^0.6.1",
+    "babel-preset-env": "^1.6.1",
     "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.0",
+    "gulp-changed": "^3.1.1",
     "gulp-clean": "^0.3.2",
+    "gulp-clean-css": "^3.9.0",
     "gulp-concat": "^2.6.1",
     "gulp-connect": "^5.0.0",
-    "gulp-jshint": "^2.0.4",
+    "gulp-sequence": "^0.4.6",
     "gulp-uglify": "^3.0.0",
-    "gulp-webserver": "^0.9.1",
-    "jshint": "^2.9.5"
+    "gulp-webserver": "^0.9.1"
   },
   "dependencies": {
+    "babel-core": "^6.26.0",
     "gulp-less": "^3.3.2",
-    "gulp-mock-server": "^1.1.4"
+    "gulp-mock-server": "^1.1.4",
+    "pump": "^2.0.0"
   }
 }

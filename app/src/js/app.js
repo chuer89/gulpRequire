@@ -1,8 +1,20 @@
+window.DOMAIN = {
+  DEV: {
+    baseUrl: 'build/js'
+  },
+  QA: {
+    baseUrl: ''
+  },
+  PUB: {
+    baseUrl: 'dist/0.0.1/js'
+  }
+}
+
 require.config({
-  baseUrl: 'src/js',
+  baseUrl: DOMAIN['DEV'].baseUrl,
   paths : {
-    "jquery" : ["http://libs.baidu.com/jquery/2.0.3/jquery"]   
+
   }
 })
 
-require(['a'])
+require(['index'])

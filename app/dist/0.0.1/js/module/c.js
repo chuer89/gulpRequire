@@ -1,0 +1,1 @@
+"use strict";define([],function(o){var n={f:function(){console.log(222)},y:"11",z:"22"};console.log("c131","y1","y44y",n);console.log("youwe0")});
