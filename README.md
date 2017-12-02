@@ -3,9 +3,17 @@
 
 * 初始化 npm install
 * 本地运行 gulp
-* 打包线上 gulp
+* 打包线上 gulp pub
 
 #### 实现功能
+* 本地独立服务
+* 开发环境监听 css|js|img|html 改变后动态刷新浏览器
+* autoprefixer css3 前缀补充
+* gulp 打包、压缩合并
+* 支持es6语法
+* less css 预编译
+* mock 假数据
+* 。。
 
 #### 注意事项
 * 不支持使用 es6 import export，用require.js代替
