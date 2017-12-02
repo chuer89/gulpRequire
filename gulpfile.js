@@ -20,6 +20,7 @@ var babel = require('gulp-babel');
 
 var less = require('gulp-less');
 var cleanCSS = require('gulp-clean-css');
+var autoprefixer = require('gulp-autoprefixer');
 
 //mock数据
 var mockServer = require('gulp-mock-server');
@@ -71,7 +72,7 @@ gulp.task('less', function() {
     .pipe(less({
       paths: [ path.join(__dirname, 'less', 'includes') ]
     }))
-    // .pipe()
+    .pipe(autoprefixer())
     .pipe(gulp.dest(filePath.outputCss));
 });
 
@@ -108,8 +109,8 @@ gulp.task('watch', function () {
   gulp.watch([rootPath + '/*.html'], ['watchHtml']);
   gulp.watch([filePath.tpl], ['watchTpl', 'watchImg'])
   gulp.watch([filePath.js], ['watchJs']);
-  gulp.watch([filePath.less], ['less', 'watchCss', 'watchImg'])
-  gulp.watch([filePath.images], ['watchImg'])
+  gulp.watch([filePath.less], ['less', 'watchCss', 'watchHtml']);
+  gulp.watch([filePath.images], ['watchImg']);
 });
 //本地监听-end
 
@@ -163,7 +164,7 @@ gulp.task('clean', function() {
 })
 
 //批量操作
-var taskAry = ['watchImg', 'watchCss', 'watchJs', 'watchTpl', 'watchHtml'];
+var taskAry = ['watchImg', 'less', 'watchJs', 'watchTpl', 'watchHtml'];
 gulp.task('updateBuild', gulpSequence('clean', taskAry.concat()));
 
 gulp.task('default',
