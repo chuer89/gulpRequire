@@ -8,6 +8,8 @@ var path = require('path');
 var clean = require('gulp-clean');
 var changed = require('gulp-changed');
 var gulpSequence = require('gulp-sequence');
+var gutil = require('gulp-util');
+var ftp = require('gulp-ftp');
 
 var config = require('./package.json');
 
@@ -166,6 +168,17 @@ gulp.task('clean', function() {
   return gulp.src(opt.build)
     .pipe(clean());
 })
+
+//ftp
+gulp.task('devFtp', function() {
+  return gulp.src(rootPath + '/*')
+    .pipe(ftp({
+      host: '',
+      user: '',
+      pass: '22'
+    }))
+    .pipe(gutil.noop());
+});
 
 //批量操作
 var taskAry = ['watchImg', 'less', 'watchJs', 'watchTpl', 'watchHtml'];
