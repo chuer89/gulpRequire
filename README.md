@@ -2,8 +2,8 @@
 # 这里是玩玩 gulp + require.js + mock + es6
 
 * 初始化 npm install
-* 本地运行 gulp
-* 打包线上 gulp pub
+* 本地运行 gulp 或 npm run dev
+* 打包线上 gulp pub  或 npm run build
 
 #### 实现功能
 * 本地独立服务

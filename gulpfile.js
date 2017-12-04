@@ -7,7 +7,9 @@ var connect = require('gulp-connect');
 var path = require('path');
 var clean = require('gulp-clean');
 var changed = require('gulp-changed');
-var gulpSequence = require('gulp-sequence')
+var gulpSequence = require('gulp-sequence');
+
+var config = require('./package.json');
 
 //require.js 打包
 var amdOptimize = require("amd-optimize");
@@ -27,10 +29,11 @@ var mockServer = require('gulp-mock-server');
 
 //基本路径配置
 var rootPath = 'app';
+var version = '';
 var opt = {
   loc: rootPath + '/src',//
   build: rootPath + '/build',
-  version: '0.0.1',
+  version: version || config.version,
   bsPort: 8009,
   mcPort: 8090
 }
@@ -38,12 +41,12 @@ var opt = {
 var filePath = {
   dist: rootPath + '/dist/' + opt.version,
 
-  js: opt.loc + '/js/**/*.js',
+  js: opt.loc + '/components/**/*.js',
   tpl: opt.loc + '/**/*.html',
   less: opt.loc + '/less/**/*.less',
   images: opt.loc + '/**/*.+(png|jpg|gif|ico)',
 
-  outputCss: opt.build + '/css',
+  outputCss: opt.build + '/style',
 
   mockMock: rootPath + '/data'
 }
@@ -89,11 +92,11 @@ gulp.task('watchTpl', function() {
 });
 gulp.task('watchJs', function() {
   gulp.src(filePath.js)
-    .pipe(changed(opt.build + '/js'))
+    .pipe(changed(opt.build + '/components'))
     .pipe(babel({
       presets: ['env']
     }))
-    .pipe(gulp.dest(opt.build + '/js'))
+    .pipe(gulp.dest(opt.build + '/components'))
     .pipe(connect.reload())
 })
 gulp.task('watchCss', function() {
@@ -132,11 +135,11 @@ gulp.task('pubJs', function(cb) {
       presets: ['env']
     }),
     uglify(),
-    gulp.dest(filePath.dist + '/js'),
+    gulp.dest(filePath.dist + '/components'),
     amdOptimize(rootPath),
     concat('app.js'),
     uglify(),
-    gulp.dest(filePath.dist + '/js')
+    gulp.dest(filePath.dist + '/components')
   ], cb);
 });
 //tpl 打包
@@ -148,9 +151,9 @@ gulp.task('pubTpl', function() {
 //css 打包合并
 gulp.task('pubCss', ['less'], function() {
   return gulp.src(filePath.outputCss + '/**/*.css')
-    .pipe(changed(filePath.dist + '/css'))
+    .pipe(changed(filePath.dist + '/style'))
     .pipe(cleanCSS({compatibility: 'ie8'}))
-    .pipe(gulp.dest(filePath.dist + '/css'))
+    .pipe(gulp.dest(filePath.dist + '/style'))
 });
 //打包img
 gulp.task('pubImg', function() {
