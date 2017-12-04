@@ -1,0 +1,1 @@
+"use strict";define([],function(){return{getUser:function(n){$.post(DOMAIN.env.host+"user",{},function(n){console.log(n)})}}});

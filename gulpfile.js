@@ -33,13 +33,14 @@ var version = '';
 var opt = {
   loc: rootPath + '/src',//
   build: rootPath + '/build',
+  online: 'dist',
   version: version || config.version,
   bsPort: 8009,
   mcPort: 8090
 }
 //文件路径配置
 var filePath = {
-  dist: rootPath + '/dist/' + opt.version,
+  dist: opt.online + '/' + opt.version,
 
   js: opt.loc + '/components/**/*.js',
   tpl: opt.loc + '/**/*.html',
@@ -122,7 +123,7 @@ gulp.task('mock', function() {
   gulp.src('.')
   .pipe(mockServer({
       port: opt.mcPort,
-      path: filePath.mockMock,
+      allowCrossOrigin: true,
       mockDir: filePath.mockMock
   }));
 });

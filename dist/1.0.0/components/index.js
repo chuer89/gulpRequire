@@ -1,0 +1,1 @@
+"use strict";define(["module/c"],function(e){$("#js_yibu").on("click",function(){require(["module/b","text!module/tpl.html","api/home"],function(e,o,t){console.log(e,o,t),t.getUser()})})});
