@@ -4,6 +4,7 @@
 var gulp = require('gulp');
 var webserver = require('gulp-webserver');
 var connect = require('gulp-connect');
+var proxy = require('http-proxy-middleware');//反向代理
 var path = require('path');
 var clean = require('gulp-clean');
 var changed = require('gulp-changed');
@@ -38,6 +39,7 @@ var opt = {
   online: 'dist',
   version: version || config.version,
   bsPort: 8009,
+  cnPort: 80091,
   mcPort: 8090
 }
 //文件路径配置
@@ -66,7 +68,16 @@ gulp.task('webserver', function() {
 gulp.task('connect', function() {
   connect.server({
     root: rootPath,
-    livereload: true
+    livereload: true,
+    port: opt.cnPort,
+    middleware: function(connect, opt) {
+      return [
+        proxy('/', {
+          target: 'http://ip:port/xx',
+          changeOrigin:true
+        })
+      ]
+    }
   });
 });
 //本地服务-end

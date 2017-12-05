@@ -25,7 +25,8 @@
     "gulp-sequence": "^0.4.6",
     "gulp-uglify": "^3.0.0",
     "gulp-util": "^3.0.8",
-    "gulp-webserver": "^0.9.1"
+    "gulp-webserver": "^0.9.1",
+    "http-proxy-middleware": "^0.17.4"
   },
   "dependencies": {
     "babel-core": "^6.26.0",
