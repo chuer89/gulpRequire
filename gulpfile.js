@@ -11,6 +11,7 @@ var changed = require('gulp-changed');
 var gulpSequence = require('gulp-sequence');
 var gutil = require('gulp-util');
 var ftp = require('gulp-ftp');
+var plumber = require('gulp-plumber');
 
 var config = require('./package.json');
 
@@ -39,7 +40,7 @@ var opt = {
   online: 'dist',
   version: version || config.version,
   bsPort: 8009,
-  cnPort: 80091,
+  cnPort: 8091,
   mcPort: 8090
 }
 //文件路径配置
@@ -62,34 +63,34 @@ gulp.task('webserver', function() {
     .pipe(webserver({
       livereload: true,
       open: true,
-      port: opt.bsPort
+      port: opt.bsPort,
+      middleware: [
+        proxy('/api', {
+          target: 'http://host:port',
+          changeOrigin:true
+        })
+      ]
     }));
 });
 gulp.task('connect', function() {
   connect.server({
     root: rootPath,
     livereload: true,
-    port: opt.cnPort,
-    middleware: function(connect, opt) {
-      return [
-        proxy('/', {
-          target: 'http://ip:port/xx',
-          changeOrigin:true
-        })
-      ]
-    }
+    port: opt.cnPort
   });
 });
 //本地服务-end
 
 //less 预编译
 gulp.task('less', function() {
-  return gulp.src(filePath.less)
-    .pipe(changed(filePath.outputCss))
+  return gulp.src(opt.loc + '/less/app.less')
+    // .pipe(changed(filePath.outputCss))
+    .pipe(plumber())
     .pipe(less({
       paths: [ path.join(__dirname, 'less', 'includes') ]
     }))
     .pipe(autoprefixer())
+    .pipe(plumber.stop())
     .pipe(gulp.dest(filePath.outputCss));
 });
 
@@ -150,16 +151,17 @@ gulp.task('pubJs', function(cb) {
     }),
     uglify(),
     gulp.dest(filePath.dist + '/components'),
-    amdOptimize(rootPath),
+    amdOptimize(rootPath, {
+      baseUrl: filePath.dist + '/components'
+    }),
     concat('app.js'),
     uglify(),
     gulp.dest(filePath.dist + '/components')
   ], cb);
 });
-//tpl 打包
 gulp.task('pubTpl', function() {
   return gulp.src(filePath.tpl)
-      .pipe(changed(filePath.dist))
+      // .pipe(changed(filePath.dist))
       .pipe(gulp.dest(filePath.dist))
 });
 //css 打包合并
@@ -199,4 +201,4 @@ gulp.task('default',
   gulpSequence(['updateBuild'], ['webserver', 'connect', 'watch', 'mock'])
 );
 
-gulp.task('pub', ['pubJs', 'pubTpl', 'pubCss', 'pubImg']);
+gulp.task('pub', gulpSequence(['pubTpl'], ['pubJs', 'pubCss', 'pubImg']));

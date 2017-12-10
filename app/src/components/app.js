@@ -4,28 +4,25 @@ window.DOMAIN = {};
   let env = {
     DEV: {
       baseUrl: 'build/components',
-      host: 'http://localhost:8090/'
+      host: 'http://localhost:8009'
     },
     QA: {
       baseUrl: ''
     },
     PUB: {
-      baseUrl: 'dist/0.0.1/components'
+      baseUrl: './1.0.0/components'
     }
   };
 
   if (1) {
-    
+
   }
 
   window.DOMAIN.env = env['DEV']
 })();
 
 require.config({
-  baseUrl: DOMAIN.env.baseUrl,
-  paths : {
-
-  }
+  baseUrl: DOMAIN.env.baseUrl
 })
 
 require(['index'])
