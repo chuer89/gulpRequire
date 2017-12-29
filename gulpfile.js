@@ -65,8 +65,8 @@ gulp.task('webserver', function() {
       open: true,
       port: opt.bsPort,
       middleware: [
-        proxy('/api', {
-          target: 'http://host:port',
+        proxy('/univ-teacher', {
+          target: 'http://dev2.boxuegu.com:58000',
           changeOrigin:true
         })
       ]
@@ -149,13 +149,13 @@ gulp.task('pubJs', function(cb) {
     babel({
       presets: ['env']
     }),
-    uglify(),
+    // uglify(),
     gulp.dest(filePath.dist + '/components'),
     amdOptimize(rootPath, {
       baseUrl: filePath.dist + '/components'
     }),
     concat('app.js'),
-    uglify(),
+    // uglify(),
     gulp.dest(filePath.dist + '/components')
   ], cb);
 });

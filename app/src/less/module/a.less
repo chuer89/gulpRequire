@@ -1,31 +1,28 @@
+body.dragging, body.dragging * {
+  cursor: move !important;
+}
+
+.dragged {
+  position: absolute;
+  opacity: 0.5;
+  z-index: 2000;
+}
+
+ol.example li.placeholder {
+  position: relative;
+  /** More li styles **/
+}
+ol.example li.placeholder:before {
+  // position: absolute;
+  /** Define arrowhead **/
+}
+
 div{
-  height: 60px;
-  background-color: #292d38;
-  box-shadow: 2px 1px red;
-  display: flex;
-  button{
-    color: @red;
-    font-size: @size-20;
-  }
-  .bb;
+  position: relative;
 }
-
-pre{
-  .wrap;
+.placeholder{
+  position: relative;
 }
-
-div{
-  a{
-    color: red;
-  }
-  span{
-    font-size: 50px;
-  }
-}
-
-@colorRed: red;
-
-h1{
-  color: @colorRed;
-  font-size: 50px;
+.placeholder:before {
+  position: absolute;
 }
